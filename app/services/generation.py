@@ -24,8 +24,9 @@ def generate_draft(document_ids: list, draft_type: str):
     prefs_str = "\n".join([f"- Replace '{k}' with '{v}'" for k, v in preferences.items()])
     
     if settings.GROQ_API_KEY == "dummy_key":
-        # Mock response
-        draft_content = "This is a mock draft summary based on the following evidence."
+        # Mock response that includes a citation for evaluation testing
+        citation = f"[Chunk {evidence_chunks[0]['chunk_id']}]" if evidence_chunks else "[Chunk mock-id]"
+        draft_content = f"This is a mock draft summary grounded in evidence {citation}."
         for k, v in preferences.items():
             draft_content = draft_content.replace(k, v)
         return draft_content, evidence_chunks
@@ -33,7 +34,7 @@ def generate_draft(document_ids: list, draft_type: str):
     prompt = f"""
     You are a legal document assistant. Create a {draft_type} based strictly on the provided evidence.
     If information is missing, state 'Missing Information'.
-    Cite evidence using [Chunk ID] inline.
+    Cite evidence using the format [Chunk: ID] inline (e.g., [Chunk: 123-abc]).
     
     Apply the following terminology preferences learned from operators:
     {prefs_str}
