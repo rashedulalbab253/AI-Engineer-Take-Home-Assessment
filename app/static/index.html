@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LexDraft AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background">
+        <div class="blob blob1"></div>
+        <div class="blob blob2"></div>
+    </div>
+    
+    <div class="container glass-panel">
+        <header>
+            <h1>LexDraft AI</h1>
+            <p>Grounded Legal Document Intelligence</p>
+        </header>
+
+        <div class="workflow">
+            <!-- Step 1: Upload -->
+            <div class="step-card active" id="step1">
+                <div class="step-header">
+                    <span class="step-num">1</span>
+                    <h2>Upload Document</h2>
+                </div>
+                <div class="step-body">
+                    <div class="upload-zone" id="drop-zone">
+                        <p>Drag & drop your noisy legal PDF or Image here</p>
+                        <input type="file" id="file-input" hidden accept=".pdf,.png,.jpg,.jpeg">
+                        <button class="btn" onclick="document.getElementById('file-input').click()">Browse Files</button>
+                    </div>
+                    <div id="upload-status" class="status-msg"></div>
+                </div>
+            </div>
+
+            <!-- Step 2: Process -->
+            <div class="step-card disabled" id="step2">
+                <div class="step-header">
+                    <span class="step-num">2</span>
+                    <h2>Process Data</h2>
+                </div>
+                <div class="step-body">
+                    <button class="btn btn-primary" id="process-btn">Run OCR & Extract Entities</button>
+                    <div id="process-loader" class="loader hidden"></div>
+                    <div id="process-result" class="result-box hidden">
+                        <h3>Structured Entities Extracted</h3>
+                        <pre id="json-result"></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Generate Draft -->
+            <div class="step-card disabled" id="step3">
+                <div class="step-header">
+                    <span class="step-num">3</span>
+                    <h2>Generate Draft</h2>
+                </div>
+                <div class="step-body">
+                    <button class="btn btn-primary" id="generate-btn">Generate Grounded Case Summary</button>
+                    <div id="generate-loader" class="loader hidden"></div>
+                    <div id="draft-result" class="result-box hidden">
+                        <h3>First-Pass Draft</h3>
+                        <div class="markdown-body" id="draft-content"></div>
+                        <div class="evidence-box">
+                            <h4>Evidence Traces</h4>
+                            <ul id="evidence-list"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Feedback -->
+            <div class="step-card disabled" id="step4">
+                <div class="step-header">
+                    <span class="step-num">4</span>
+                    <h2>Operator Feedback</h2>
+                </div>
+                <div class="step-body">
+                    <p class="feedback-desc">Replace inaccurate terminology to train the system for future drafts.</p>
+                    <div class="feedback-inputs">
+                        <input type="text" id="fb-old" placeholder="Text to replace (e.g. claimant)">
+                        <input type="text" id="fb-new" placeholder="New text (e.g. plaintiff)">
+                        <button class="btn btn-secondary" id="feedback-btn">Submit Edit</button>
+                    </div>
+                    <div id="feedback-status" class="status-msg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
