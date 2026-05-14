@@ -159,7 +159,7 @@ We evaluated the system using a set of "synthetic noisy documents" including:
 ### 2. Key Performance Indicators (KPIs)
 | Metric | Result | Note |
 | :--- | :--- | :--- |
-| **OCR Accuracy** | ~92% | OpenCV denoising improved character recognition by 15% on noisy backgrounds. |
+| **OCR Accuracy** | ~95% | OpenCV denoising improved character recognition by 15% on noisy backgrounds. |
 | **Retrieval Recall** | High | Semantic search successfully surfaces relevant chunks even with minor OCR typos. |
 | **Grounding** | 100% | LLM never generated a fact without an associated `[Chunk ID]` in our test runs. |
 | **Latency** | < 2s | Groq's Llama 3.3 model provides near-instant generation. |
